@@ -19,20 +19,20 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(std_msgs REQUIRED)
+find_package(rclcpp_action REQUIRED)
+find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
-find_package(tf2 REQUIRED)
-find_package(tf2_ros REQUIRED)
 
 set(THIS_PACKAGE_INCLUDE_DEPENDS
     rclcpp
     rclcpp_action
-    std_msgs
+    sensor_msgs
+    geometry_msgs
 )
 
 # Build service node.
-add_executable(cpp_walker src/walker.cpp)
-ament_target_dependencies(cpp_walker rclcpp)
+add_executable(cpp_walker src/cpp_walker.cpp)
+ament_target_dependencies(cpp_walker rclcpp sensor_msgs geometry_msgs)
 
 # Install targets.
 install(TARGETS
