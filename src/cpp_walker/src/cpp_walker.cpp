@@ -1,3 +1,5 @@
+// Copyright 2016 Open Source Robotics Foundation, Inc.
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -38,7 +40,6 @@ using std::placeholders::_1;
 class cpp_walker : public rclcpp::Node {
  public:
   cpp_walker() : Node("cpp_walker") {
-
     RCLCPP_DEBUG_STREAM(this->get_logger(), "Initializing cpp_walker.");
 
     RCLCPP_DEBUG_STREAM(this->get_logger(), "Created subscriber");
@@ -61,11 +62,9 @@ class cpp_walker : public rclcpp::Node {
 
     RCLCPP_DEBUG_STREAM(this->get_logger(),
                         "Initialization of cpp_walker done.");
-
   }
 
  private:
-
   /**
    * @brief Checks the robots preripheral vision for obstacles
    * from laser scan data
@@ -74,27 +73,20 @@ class cpp_walker : public rclcpp::Node {
    * @return true : if path is obstacle free
    * @return false : if path contains obstacels
    */
-  bool checkFreeSpace(const sensor_msgs::msg::LaserScan& msg) const{
-
+  bool checkFreeSpace(const sensor_msgs::msg::LaserScan& msg) const {
     bool isFreeSpace = true;
-
     /**
      * @brief Check Right side peripheral vision up to 45 samples
      * Note: Total 360 samples for 360 degrees
      */
 
-    auto elem = std::find_if(msg.ranges.begin(), msg.ranges.begin()+45, [](float r){
-      return (r < 0.5);
+    auto elem = std::find_if(msg.ranges.begin(), msg.ranges.begin()+45,
+        [](float r){ return (r < 0.5);
     });
 
     if (elem != msg.ranges.begin()+45) {
-
        isFreeSpace = false;
-
-    }
-    else
-     {
-
+    } else {
     /**
      * @brief Check Left side peripheral vision up to 45 samples
      * Note: Total 360 samples for 360 degrees
@@ -106,7 +98,6 @@ class cpp_walker : public rclcpp::Node {
       if (elem != msg.ranges.end()) {
         isFreeSpace = false;
       }
-
     }
 
     return isFreeSpace;
@@ -125,13 +116,11 @@ class cpp_walker : public rclcpp::Node {
     bool isFreeSpace = checkFreeSpace(msg);
     if (isFreeSpace) {
       vel.linear.x = 0.3;
-    }
-    else {
+    } else {
         vel.angular.z = 0.3;
     }
 
     publisher_->publish(vel);
-
   }
 
   /**
@@ -146,7 +135,6 @@ class cpp_walker : public rclcpp::Node {
    *
    */
   rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr publisher_;
-
 };
 
 /**
