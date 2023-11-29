@@ -69,9 +69,9 @@
  ```
 
 
-<!-- ## How to run the demo
-### 2. Running the launch file
-      The service, publisher, and subscriber nodes can also be launched from the launch file using the below steps.
+## How to run the demo
+### 1. Running the launch file
+      The gazebo and walker nodes can be launched from the launch file using the below steps.
 - ### Instructions
 ```bash
 # Source ros environemnt
@@ -80,52 +80,18 @@
 # Source project
   source ./install/setup.bash
 
-# run talker node
-  ros2 launch cpp_pubsub pubsub_launch.py
-  ```
+# run walker and gazebo
+  ros2 launch cpp_walker walker.launch.py
+  
+# run with rosbag record
+ros2 launch cpp_walker walker.launch.py is_record_bag:=true bag_file_path:=rosbag/walker
+```
 - ### Results
-![alt text](./result_images/launch_results.png)
+![alt text](./result_images/walker_launch.png)
 
-### 3. Set ROS2 node parameters though launch file
-- ### Instructions to modify publisher rate
-```bash
-# To change publisher rate, use the pub_rate(units in milliseconds) launch argument as shown below
-ros2 launch cpp_pubsub pubsub_launch.py log_level:='info' pub_rate:=1000
-```
 
-### 5. Run and view gtest results
-- ### Instructions to run test cases
-```bash
-# Source ros environemnt
-  source /opt/ros/humble/setup.bash
 
-# Source project
-  source ./install/setup.bash
-
-  # Run test cases in cpp_pubsub
-colcon test --packages-select cpp_pubsub
-```
-- ### Instructions to view test results
-```bash
-cat log/latest_test/minimal_integration_test/stdout_stderr.log
-```
-
-- ### GTest Results
-![alt text](./result_images/test_log.png)
-
-### 6. Record and Playback bag files
-- ### Instructions to launch with ros2 bag recorder
-```bash
-  # Source ros environemnt
-  source /opt/ros/humble/setup.bash
-
-  # Source project
-  source ./install/setup.bashs
-
-  # Launch file options to enable ros2 bag recording
-  ros2 launch cpp_pubsub pubsub_launch.py  is_record_bag:=true  bag_file_path:=rosbag/talker
-```
-- ### Instructions to launch ros2 bag playback
+### 2. Instructions to launch ros2 bag playback
 ```bash
   # Source ros environemnt
   source /opt/ros/humble/setup.bash
@@ -134,11 +100,11 @@ cat log/latest_test/minimal_integration_test/stdout_stderr.log
   source ./install/setup.bash
 
   # Launch file to playback the bag-file and listener
-  ros2 launch cpp_pubsub rosbag_replay_launch.py bag_file_path:=rosbag/talker
+  ros2 launch cpp_walker rosbag_replay_launch.py bag_file_path:=rosbag/walker
 ```
 
 - ### ros2 bag playback results
-![alt text](./result_images/ros2_bag_play.png) -->
+![alt text](./result_images/rosbag_playback.png)
 
 
 
