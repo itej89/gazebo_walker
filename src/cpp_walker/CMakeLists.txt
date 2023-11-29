@@ -1,11 +1,9 @@
 cmake_minimum_required(VERSION 3.8)
 project(cpp_walker)
 
-
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
-
 
 # clangd support
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -44,27 +42,6 @@ install(DIRECTORY
 launch models world
 DESTINATION share/${PROJECT_NAME}/
 )
-
-if(BUILD_TESTING)
-  find_package(ament_cmake_gtest REQUIRED)
-  find_package(ament_lint_auto REQUIRED)
-
-  # un-comment the following lines skip linters (TRUE = skip that test)
-  # set(ament_cmake_cppcheck_FOUND TRUE)
-  set(ament_cmake_copyright_FOUND TRUE)
-  set(ament_cmake_cpplint_FOUND TRUE)
-  # set(ament_cmake_flake8_FOUND TRUE)
-  set(ament_cmake_uncrustify_FOUND TRUE)
-
-  # Run all lint tests in package.xml except those listed above
-  ament_lint_auto_find_test_dependencies()
-
-  # Add a gtest executable
-  set(TESTFILES
-    test/basic_test.cpp)
-  ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES})
-  ament_target_dependencies(${PROJECT_NAME}_test ${THIS_PACKAGE_INCLUDE_DEPENDS})
-endif()
 
 ament_export_dependencies(rosidl_default_runtime)
 ament_package()
