@@ -22,16 +22,17 @@ def generate_launch_description():
     
     walker_dir = get_package_share_directory('cpp_walker')
 
+    # Gazebo launch node
     walker_gazebo_launch = actions.IncludeLaunchDescription(
         launch_description_sources.PythonLaunchDescriptionSource(
-                walker_dir + '/launch/gazebo_launch.py'))
+                walker_dir + '/launch/gazebo_launch.py')
+    )
     
-
+    # Walker node
     walker_algo = Node(
         package="cpp_walker",
         executable="cpp_walker"
     )
-
 
     # Launch argument that enables or disables ros2 bag recording
     is_record_bag=  DeclareLaunchArgument(
@@ -40,14 +41,12 @@ def generate_launch_description():
         description='Determines if ros bag record should be enabled.'
     )
 
-
     # Launch argument that sets the ros2 bag recording path
     bag_file_path = DeclareLaunchArgument(
         "bag_file_path", 
         default_value='rosbag/talker',
         description='Determines the location to save the bag file.'
     )
-
 
     # Launch ros2 bag recorder
     proc_ros_bag = ExecuteProcess(
@@ -56,12 +55,10 @@ def generate_launch_description():
         condition=IfCondition(LaunchConfiguration('is_record_bag'))
     )
     
-
-
-    #Make launch description
+    # Make launch description
     ld = launch.LaunchDescription()
 
-    #Add nodes
+    # Add nodes
     ld.add_action(walker_gazebo_launch)
     ld.add_action(walker_algo)
     ld.add_action(is_record_bag)
