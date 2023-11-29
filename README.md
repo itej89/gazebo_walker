@@ -89,6 +89,10 @@ ros2 launch cpp_walker walker.launch.py is_record_bag:=true bag_file_path:=rosba
 - ### Results
 ![alt text](./result_images/walker_launch.png)
 
+- ### Demo Video
+https://github.com/itej89/gazebo_walker/assets/37236721/fb86e5e2-3281-43d7-b174-58cf315adaaf
+
+
 
 
 ### 2. Instructions to launch ros2 bag playback
